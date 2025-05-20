@@ -1,25 +1,42 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Cadastro from "./src/Cadastro";
-import Lista from "./src/Lista";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-function App() {
+import Cadastro from "./src/telas/Cadastro";
+import Lista from "./src/telas/Lista";
+
+const handleJogos = () => {
+  navigation.replace("Lista");
+}
+const handleCadastro = () => {
+  navigation.replace("Cadastro")
+}
+
+export default function App({navigation}) {
   return (
-    <Router>
-      <div className="App">
-        <h1>Cadastro de Jogos</h1>
-        <nav>
-          <Link to="/">Lista de Jogos</Link> |{" "}
-          <Link to="/cadastro">Cadastrar Novo Jogo</Link>
-        </nav>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Cadastro de Jogos</Text>
+      <View>
+        <TouchableOpacity onPress={handleJogos}>Lista de jogos</TouchableOpacity> |{" "}
+        <TouchableOpacity onPress={handleCadastro}>Cadastrar Novo Jogo</TouchableOpacity>
+      </View>
 
-        <Routes>
-          <Route path="/" element={<Lista />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-        </Routes>
-      </div>
-    </Router>
+      <NavigationContainer>
+        <MediaStreamTrack.Navigator  />
+        <Route path="/cadastro" element={<Cadastro />} />
+      </NavigationContainer>
+    </View>
   );
 }
 
-export default App;
+const styles = StyleSheet.create({
+container:{
+   flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 30
+},
+titulo:{
+  color: '#fafa' 
+}
+});

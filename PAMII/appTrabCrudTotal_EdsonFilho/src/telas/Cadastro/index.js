@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { TextInput } from "react-native-web";
 
-function Cadastro() {
-  const [jogo, setJogo] = useState({
-    nome: "",
-    genero: "",
-    plataforma: "",
-    ano: "",
-    avaliacao: "",
-  });
+export default function Cadastro() {
+  
+  const [nome,setNome] = useState('');
+  const [genero, setGenero] = useState('');
+  const [plataforma, setPlataforma] = useState('');
+  const [ano, setAno] = useState('');
+  const [avaliacao, setAvaliacao] = useState('');
 
   const handleChange = (e) => {
     setJogo({ ...jogo, [e.target.name]: e.target.value });
@@ -16,27 +22,72 @@ function Cadastro() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost/backend/inserir.php", jogo)
+    axios
+      .post("http://localhost/backend/inserir.php", jogo)
       .then(() => {
         alert("Jogo cadastrado com sucesso!");
-        setJogo({ nome: "", genero: "", plataforma: "", ano: "", avaliacao: "" });
+        setJogo({
+          nome: "",
+          genero: "",
+          plataforma: "",
+          ano: "",
+          avaliacao: "",
+        });
       })
       .catch((error) => console.error(error));
   };
 
   return (
-    <div>
-      <h2>Cadastro de Jogo</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="nome" placeholder="Nome" value={jogo.nome} onChange={handleChange} required />
-        <input name="genero" placeholder="Gênero" value={jogo.genero} onChange={handleChange} />
-        <input name="plataforma" placeholder="Plataforma" value={jogo.plataforma} onChange={handleChange} />
-        <input name="ano" placeholder="Ano" type="number" value={jogo.ano} onChange={handleChange} />
-        <input name="avaliacao" placeholder="Avaliação" type="number" step="0.1" value={jogo.avaliacao} onChange={handleChange} />
-        <button type="submit">Cadastrar</button>
-      </form>
-    </div>
+    <View style={styles.container}>
+      <Text>Cadastro de Jogo</Text>
+      <View>
+        <TextInput
+          style={style.input}
+          placeholder="Nome do jogo"
+          value={senha}
+          onChangeText={setNome}
+          placeholderTextColor="#999"
+        />
+        <TextInput
+          style={style.input}
+          placeholder="Gênero"
+          value={genero}
+          onChangeText={setGenero}
+          placeholderTextColor="#999"
+        />
+        <TextInput
+          style={style.input}
+          placeholder="Plataforma"
+          value={plataforma}
+          onChangeText={setPlataforma}
+          placeholderTextColor="#999"
+        />
+        <TextInput
+          style={style.input}
+          placeholder="Ano"
+          value={ano}
+          onChangeText={setAno}
+          placeholderTextColor="#999"
+        />
+        <TextInput
+          style={style.input}
+          placeholder="Avaliação"
+          value={avaliacao}
+          onChangeText={setAvaliacao}
+          placeholderTextColor="#999"
+        />
+        <TouchableOpacity onPress={Cadastro}>Cadastrar</TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
-export default Cadastro;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 30,
+  },
+});
