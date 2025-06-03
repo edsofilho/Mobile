@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { View } from "react-native-web";
 
 function Lista() {
   const [jogos, setJogos] = useState([]);
@@ -22,7 +23,7 @@ function Lista() {
   };
 
   return (
-    <div>
+    <View>
       <h2>Lista de Jogos</h2>
       <table border="1">
         <thead>
@@ -51,7 +52,7 @@ function Lista() {
           ))}
         </tbody>
       </table>
-    </div>
+    </View>
   );
 }
 
